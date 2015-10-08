@@ -6,7 +6,7 @@ __author__ = 'hiroshi'
 import sys
 
 from PySide.QtCore import *
-from Pyside.QtGui import *
+from PySide.QtGui import *
 
 
 qt_app = QApplication(sys.argv)
@@ -21,7 +21,7 @@ class ExamBoxLayout(QWidget):
         self.layout = QVBoxLayout()
 
         # QGroupboxを追加
-        self.groupbox = QGroupBox(self, "上部ボックス")
+        self.groupbox = QGroupBox(self, title="上部ボックス")
 
         # フォームレイアウトでラベルをセットできる
         self.form_layout = QFormLayout()
@@ -40,31 +40,32 @@ class ExamBoxLayout(QWidget):
         self.button_box.addWidget(self.btn3)
 
         # フォームにaddRow
-        self.lform_layout.addRow("ボタンリスト", self.button_box)
+        self.form_layout.addRow("ボタンリスト", self.button_box)
 
         # コンボボックス追加
-        self.nullstr = ["hoge","huga","hogehuga","ほげ","ふが"]
+        self.nullstr = ["hoge", "huga", "hogehuga", "ほげ", "ふが"]
         self.combo1 = QComboBox(self)
         self.combo1.addItems(self.nullstr)
 
         # コンボボックスをふぉーむにaddRow
         self.form_layout.addRow('適当な文字列', self.combo1)
 
+        self.groupbox.setLayout(self.form_layout)
+
         # Add the form layout to the main VBox layout
-        self.layout.addLayout(self.form_layout)
+        self.layout.addWidget(self.groupbox)
 
         # Add stretch to separate the form layout from the button
         self.layout.addStretch(1)
 
-
         # ツリービューを追加
-
-        # ステータスバーを追加
-        self.statusbar = QStatusBar(self)
 
         # ウィンドウに作ったレイアウト郡を追加
         self.setLayout(self.layout)
 
+        # ステータスバーを追加
+        self.statusbar = QStatusBar(self)
+        self.layout.addWidget(self.statusbar)
     def run(self):
         # Show the form
         self.show()
@@ -73,7 +74,8 @@ class ExamBoxLayout(QWidget):
 
 
 def main():
-    pass
+    app = ExamBoxLayout()
+    app.run()
 
 
 if __name__ == '__main__':
