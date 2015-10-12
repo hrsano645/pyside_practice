@@ -8,6 +8,10 @@ import sys
 from PySide.QtGui import *
 
 
+def say_hello_botton():
+    pass
+
+
 qt_app = QApplication(sys.argv)
 
 class ExamBoxLayout(QWidget):
@@ -32,6 +36,8 @@ class ExamBoxLayout(QWidget):
         self.btn1 = QPushButton("ボタン1", self)
         self.btn2 = QPushButton("ボタン1", self)
         self.btn3 = QPushButton("ボタン1", self)
+
+        #ボタンにSlotを追加
 
         # ボタンをHBoxに追加
         self.button_box.addWidget(self.btn1)
@@ -58,6 +64,10 @@ class ExamBoxLayout(QWidget):
         self.layout.addStretch(1)
 
         # ツリービューを追加
+        self.list = QListView(self)
+
+        # モデルビューを追加してモデルに値を追加出来るようにする
+        self.listmodel = QStandardItemModel(self.list)
 
         # ウィンドウに作ったレイアウト郡を追加
         self.setLayout(self.layout)
