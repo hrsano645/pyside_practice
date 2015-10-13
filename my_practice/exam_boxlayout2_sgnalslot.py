@@ -4,13 +4,7 @@ from __future__ import division, print_function, absolute_import, unicode_litera
 __author__ = 'hiroshi'
 
 import sys
-
 from PySide.QtGui import *
-
-
-def say_hello_botton():
-    pass
-
 
 qt_app = QApplication(sys.argv)
 
@@ -38,6 +32,7 @@ class ExamBoxLayout(QWidget):
         self.btn3 = QPushButton("ボタン1", self)
 
         #ボタンにSlotを追加
+        self.btn1.clicked.connect(self.say_hello_botton)
 
         # ボタンをHBoxに追加
         self.button_box.addWidget(self.btn1)
@@ -66,8 +61,13 @@ class ExamBoxLayout(QWidget):
         # ツリービューを追加
         self.list = QListView(self)
 
-        # モデルビューを追加してモデルに値を追加出来るようにする
         self.listmodel = QStandardItemModel(self.list)
+        self.list.setModel(self.listmodel)
+
+        # ボタンを押したら何らかの文字を入れる
+
+        # メインのレイアウトにリストを追加
+        self.layout.addWidget(self.list)
 
         # ウィンドウに作ったレイアウト郡を追加
         self.setLayout(self.layout)
@@ -75,6 +75,9 @@ class ExamBoxLayout(QWidget):
         # ステータスバーを追加
         self.statusbar = QStatusBar(self)
         self.layout.addWidget(self.statusbar)
+
+    def say_hello_botton(self):
+        self.listmodel.appendRow(QStandardItem("\"{}\" が選択されました".format(self.combo1.currentText())))
 
     def run(self):
         # Show the form
